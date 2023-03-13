@@ -10,42 +10,81 @@ function getComputerChoice(){
 
 
 function playRound(playerSelection, computerSelection){
+    let picture = document.createElement('img');
+    picture.setAttribute('class', 'nested-img');
+    picture.setAttribute('style', 'margin-left: 35%; height: 40%; width: 40%;');
+    let finale;
     if (playerSelection == computerSelection){
-        return `It's a tie! Both selected ${playerSelection}`;
+        picture.setAttribute('src', 'images/lose.gif');
+        finale = `It's a tie! Both selected ${playerSelection}`;
     }
     else if (playerSelection == "Rock")
     {
         if (computerSelection == "Scissors"){
-            return `You won! Rock beats Scissors`;
+            picture.setAttribute('src', 'images/win.gif');
+            finale = `You won! Rock beats Scissors`;
         }
-        else {return `You lost! Paper beats Rock`;}
+        else {picture.setAttribute('src', 'images/lose.gif');
+        finale = `You lost! Paper beats Rock`;}
     }
     else if (playerSelection == "Paper")
     {
         if (computerSelection == "Scissors"){
-            return `You lost! Scissors beat Paper`;
+            picture.setAttribute('src', 'images/lose.gif');
+            finale = `You lost! Scissors beat Paper`;
         }
-        else {return `You Won! Paper beats Rock`;}
+        else {picture.setAttribute('src', 'images/win.gif');
+        finale = `You Won! Paper beats Rock`;}
     }
     else
     {
         if (computerSelection == "Rock"){
-            return `You lost! Rock beats Scissors`;
+            picture.setAttribute('src', 'images/lose.gif');
+            finale = `You lost! Rock beats Scissors`;
         }
-        else {return `You Won! Scissors beat Paper`;}
+        else {picture.setAttribute('src', 'images/win.gif');
+        finale = `You Won! Scissors beat Paper`;}
     }
+    let respace = document.querySelector("#resgif");
+        respace.appendChild(picture);
+        return finale;
     }
 
 
-function game(){
-    let playerChoice;
-    let computerChoice;
-    for (let i = 0; i < 5; i++) {
-        playerChoice = prompt("Select either rock, paper or scissors").toLowerCase();
-        playerChoice = playerChoice[0].toUpperCase() + playerChoice.slice(1);
+function game(playerChoice){
+        let computerChoice;
         computerChoice = getComputerChoice();
-        console.log(playRound(playerChoice, computerChoice));
-     }
+        let result = document.createElement('div');
+        result.textContent = (playRound(playerChoice, computerChoice));
+        let respace = document.querySelector("#respace");
+        respace.appendChild(result);
 }
 
-game();
+function rightImage(element){
+    let picture = document.createElement('img');
+    if (element.textContent == "Rock"){
+        picture.setAttribute('src', 'images/rock-sus.gif');
+    }
+    else if (element.textContent == "Paper"){
+        picture.setAttribute('src', 'images/paper.png');
+    }
+    else{
+        picture.setAttribute('src', 'images/scissors.gif');
+    }
+    picture.setAttribute('class', 'nested-img');
+    picture.setAttribute('style', 'margin-left: 35%; height: 40%; width: 40%;');
+    return picture;
+}
+
+function accessImage(){
+    let img = document.querySelector(".nested-img");
+    return img;
+}
+const choices = document.querySelectorAll(".choice");
+const space = document.querySelector("#image-space");
+choices.forEach(element => {
+    element.addEventListener('click', () => game(element.textContent));
+    element.addEventListener('mouseenter', () => space.appendChild(rightImage(element)));
+    element.addEventListener('mouseout', () => space.removeChild(accessImage()));
+});
+
