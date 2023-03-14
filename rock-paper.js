@@ -94,8 +94,8 @@ function accessImage(){
 const choices = document.querySelectorAll(".choice");
 const space = document.querySelector("#image-space");
 choices.forEach(element => {
-    element.addEventListener('click', () => {game(element.textContent); /**/});
+    element.addEventListener('click', () => {clearGameMessages(); game(element.textContent)});
     element.addEventListener('mouseenter', () => space.appendChild(rightImage(element)));
-    element.addEventListener('mouseout', () => {space.removeChild(accessImage()); clearGameMessages();});
+    element.addEventListener('mouseout', () => space.removeChild(accessImage()));
 });
 
