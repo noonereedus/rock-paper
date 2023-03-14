@@ -11,7 +11,7 @@ function getComputerChoice(){
 
 function playRound(playerSelection, computerSelection){
     let picture = document.createElement('img');
-    picture.setAttribute('class', 'nested-img');
+    picture.setAttribute('class', 'result-img');
     picture.setAttribute('style', 'margin-left: 35%; height: 40%; width: 40%;');
     let finale;
     if (playerSelection == computerSelection){
@@ -56,8 +56,19 @@ function game(playerChoice){
         computerChoice = getComputerChoice();
         let result = document.createElement('div');
         result.textContent = (playRound(playerChoice, computerChoice));
+        result.setAttribute('style', 'text-align: center;');
+        result.setAttribute('id', 'restext');
         let respace = document.querySelector("#respace");
         respace.appendChild(result);
+}
+
+function clearGameMessages(){
+    let result = document.querySelector("#restext");
+    let respace = document.querySelector("#respace");
+    let gifspace = document.querySelector("#resgif");
+    let img = document.querySelector(".result-img");
+    respace.removeChild(result);
+    gifspace.removeChild(img);
 }
 
 function rightImage(element){
@@ -72,7 +83,7 @@ function rightImage(element){
         picture.setAttribute('src', 'images/scissors.gif');
     }
     picture.setAttribute('class', 'nested-img');
-    picture.setAttribute('style', 'margin-left: 35%; height: 40%; width: 40%;');
+    picture.setAttribute('style', 'height: 80%; width: 80%;');
     return picture;
 }
 
@@ -83,8 +94,8 @@ function accessImage(){
 const choices = document.querySelectorAll(".choice");
 const space = document.querySelector("#image-space");
 choices.forEach(element => {
-    element.addEventListener('click', () => game(element.textContent));
+    element.addEventListener('click', () => {game(element.textContent); /**/});
     element.addEventListener('mouseenter', () => space.appendChild(rightImage(element)));
-    element.addEventListener('mouseout', () => space.removeChild(accessImage()));
+    element.addEventListener('mouseout', () => {space.removeChild(accessImage()); clearGameMessages();});
 });
 
