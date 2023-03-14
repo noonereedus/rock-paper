@@ -42,8 +42,3 @@ body {
     display: block;
 }
 
-#image-space {
-    background-image: radial-gradient(rgba(2255, 255, 0.1) 9%, transparent 9%);
-    background-position: 0% 0%;
-    background-size: 12vmin 12vmin;
-}
